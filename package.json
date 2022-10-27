@@ -1,6 +1,6 @@
 {
   "name": "handshake-util",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "a collection of utility functions for Handshake",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,7 +12,7 @@
     "build:browserify": "tsc && browserify dist/index.js -s hnsUtil -o /tmp/handshake-util.js",
     "build:docs": "documentation build dist/index.js --github --sort-order='alpha' -f md > ./docs/index.md",
     "coverage": "npm run build:dist && istanbul cover _mocha",
-    "coveralls": "npm run coverage && coveralls <coverage/lcov.info",
+    "coveralls": "npm run coverage && coveralls < coverage/lcov.info",
     "lint": "ts-standard",
     "lint:fix": "ts-standard --fix",
     "prepublishOnly": "npm run build:dist",
