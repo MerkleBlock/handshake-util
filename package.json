@@ -1,22 +1,24 @@
 {
   "name": "handshake-util",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "a collection of utility functions for Handshake",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "browserify index.js blake2b.js -s hnsUtil -o /tmp/handshake-util.js",
+    "build": "tsc",
+    "build:browserify": "tsc && browserify dist/index.js -s hnsUtil -o /tmp/handshake-util.js",
+    "build:docs": "documentation build dist/index.js --github --sort-order='alpha' -f md > ./docs/index.md",
     "coverage": "npm run build:dist && istanbul cover _mocha",
-    "coveralls": "npm run coverage && coveralls <coverage/lcov.info",
-    "lint": "standard",
+    "coveralls": "npm run coverage && coveralls < coverage/lcov.info",
+    "lint": "ts-standard",
+    "lint:fix": "ts-standard --fix",
     "prepublishOnly": "npm run build:dist",
     "test": "npm run lint && npm run test:node && npm run test:browser",
-    "test:browser": "npm run build:dist && karma start karma.conf.js",
-    "test:node": "npm run build:dist && istanbul test mocha -- --reporter spec",
-    "build:dist": "babel index.js blake2b.js --source-root ./ -d ./dist",
-    "build:docs": "documentation build ./index.js --github --sort-order='alpha' -f md > ./docs/index.md"
+    "test:browser": "npm run build && karma start karma.conf.js",
+    "test:node": "npm run build && istanbul test mocha -- --reporter spec"
   },
   "repository": {
     "type": "git",
@@ -32,8 +34,14 @@
     "url": "https://github.com/merkleblock/handshake-util/issues"
   },
   "homepage": "https://github.com/merkleblock/handshake-util",
-  "devDependencies": {},
-  "standard": {
+  "devDependencies": {
+    "@types/bech32": "^1.1.4",
+    "@types/blake2b": "^2.1.0",
+    "browserify": "^17.0.0",
+    "ts-standard": "^12.0.1",
+    "typescript": "^4.8.4"
+  },
+  "ts-standard": {
     "globals": [
       "describe",
       "it"
@@ -43,7 +51,8 @@
     ]
   },
   "dependencies": {
-    "bech32": "^1.1.3",
-    "blake2b": "^2.1.3"
+    "bech32": "^1.1.4",
+    "blake2b": "^2.1.4",
+    "buffer": "^5.0.3"
   }
 }
